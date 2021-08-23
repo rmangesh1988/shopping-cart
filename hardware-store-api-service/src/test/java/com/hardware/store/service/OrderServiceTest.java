@@ -2,6 +2,7 @@ package com.hardware.store.service;
 
 import com.hardware.store.domain.*;
 import com.hardware.store.dto.AddressDTO;
+import com.hardware.store.exception.EntityNotFoundException;
 import com.hardware.store.mapper.AddressMapper;
 import com.hardware.store.repository.OrderRepository;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -153,6 +155,34 @@ public class OrderServiceTest {
 
         verify(userService, times(1)).findByEmail(username);
         verify(orderRepository, times(1)).findAllByUserId(user.getId());
+    }
+
+    @Test
+    public void testFindByIdSuccess() {
+        Long orderId = 1L;
+        Order order = Order.builder()
+                .id(orderId)
+                .build();
+
+        when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
+
+        Order orderResult = orderService.findById(orderId);
+
+        assertThat(orderResult).isNotNull();
+        assertThat(orderResult.getId()).isEqualTo(orderId);
+
+        verify(orderRepository, times(1)).findById(orderId);
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void testFindByIdNotFound() {
+        Long productId = 1L;
+
+        when(orderRepository.findById(productId)).thenReturn(Optional.empty());
+
+        orderService.findById(productId);
+
+        verify(orderRepository, times(1)).findById(productId);
     }
 
 }

@@ -4,6 +4,7 @@ import com.hardware.store.domain.Cart;
 import com.hardware.store.domain.Order;
 import com.hardware.store.domain.User;
 import com.hardware.store.dto.AddressDTO;
+import com.hardware.store.exception.EntityNotFoundException;
 import com.hardware.store.mapper.AddressMapper;
 import com.hardware.store.repository.OrderRepository;
 import lombok.AllArgsConstructor;
@@ -41,5 +42,9 @@ public class OrderService {
     public List<Order> findOrdersByUser(String username) {
         User user = userService.findByEmail(username);
         return orderRepository.findAllByUserId(user.getId());
+    }
+
+    public Order findById(Long id) {
+        return orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Order with ID " + id + " is not present"));
     }
 }

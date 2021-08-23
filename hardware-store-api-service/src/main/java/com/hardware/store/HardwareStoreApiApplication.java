@@ -35,18 +35,14 @@ public class HardwareStoreApiApplication {
             Product iPhone = productService.save(ProductDTO.builder().name("iPhone").price(1000.0).build());
             Product ps5 = productService.save(ProductDTO.builder().name("PS5").price(500.0).build());
 
+            //Pre populated cart for demo
             Cart cartBitopi = Cart.builder()
                     .cartItems(List.of(CartItem.builder()
                             .product(iPhone)
                             .quantity(1)
-                            .build(), CartItem.builder()
-                            .product(ps5)
-                            .quantity(1)
                             .build()))
                     .user(bitopi)
                     .build();
-
-
             cartService.save(cartBitopi);
 
 

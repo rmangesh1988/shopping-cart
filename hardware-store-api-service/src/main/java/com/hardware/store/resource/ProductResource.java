@@ -28,12 +28,12 @@ public class ProductResource {
     }
 
     @GetMapping("/pages")
-    public ResponseEntity<List<Product>> findAllProductsByPagination(@RequestParam Integer pageNumber,@RequestParam Integer size) {
+    public ResponseEntity<List<Product>> findAllProductsWithPagination(@RequestParam Integer pageNumber,@RequestParam Integer size) {
         return ResponseEntity.ok(productService.findAll(pageNumber, size));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Product>> findAllByName(@RequestParam String name) {
+    public ResponseEntity<List<Product>> searchByName(@RequestParam String name) {
         return ResponseEntity.ok(productService.searchByProductName(name));
     }
 

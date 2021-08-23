@@ -3,6 +3,7 @@ package com.hardware.store.repository.specification;
 import com.hardware.store.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,6 +13,7 @@ import javax.persistence.criteria.Root;
 
 @AllArgsConstructor
 @Builder
+@Data
 public class ProductSpecification implements Specification<Product> {
 
     private SearchCriteria searchCriteria;

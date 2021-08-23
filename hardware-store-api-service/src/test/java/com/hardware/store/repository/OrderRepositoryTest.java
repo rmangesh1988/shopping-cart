@@ -1,24 +1,15 @@
 package com.hardware.store.repository;
 
-import com.hardware.store.config.SecurityConfig;
 import com.hardware.store.domain.*;
-import com.hardware.store.mapper.ProductMapper;
 import com.hardware.store.mapper.ProductMapperImpl;
 import com.hardware.store.service.*;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -29,9 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-/*@TestPropertySource(properties = {
-        "spring.jpa.hibernate.ddl-auto=create-drop"
-})*/
+//Need to debug more here. This should not be needed. For some godly reason spring context is unable to find out these beans, when they are already defined.
 @Import({UserService.class, BCryptPasswordEncoder.class, RoleService.class, ProductService.class, CartService.class, ProductMapperImpl.class, CartItemService.class})
 public class OrderRepositoryTest {
 
