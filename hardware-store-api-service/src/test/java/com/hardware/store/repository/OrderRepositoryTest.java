@@ -1,6 +1,7 @@
 package com.hardware.store.repository;
 
 import com.hardware.store.domain.*;
+import com.hardware.store.mapper.NewsMapperImpl;
 import com.hardware.store.mapper.ProductMapperImpl;
 import com.hardware.store.service.*;
 import org.junit.Test;
@@ -21,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 //Need to debug more here. This should not be needed. For some godly reason spring context is unable to find out these beans, when they are already defined.
-@Import({UserService.class, BCryptPasswordEncoder.class, RoleService.class, ProductService.class, CartService.class, ProductMapperImpl.class, CartItemService.class})
+@Import({UserService.class, BCryptPasswordEncoder.class, RoleService.class, ProductService.class, CartService.class, ProductMapperImpl.class, CartItemService.class, NewsService.class, NewsMapperImpl.class})
 public class OrderRepositoryTest {
 
     @Autowired
