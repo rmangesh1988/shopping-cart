@@ -2,10 +2,7 @@ package com.hardware.store;
 
 import com.hardware.store.domain.*;
 import com.hardware.store.dto.ProductDTO;
-import com.hardware.store.service.CartService;
-import com.hardware.store.service.ProductService;
-import com.hardware.store.service.RoleService;
-import com.hardware.store.service.UserService;
+import com.hardware.store.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +19,7 @@ public class HardwareStoreApiApplication {
     }
 
     @Bean
-    CommandLineRunner run(UserService userService, RoleService roleService, ProductService productService, CartService cartService) {
+    CommandLineRunner run(UserService userService, RoleService roleService, ProductService productService, CartService cartService, NewsService newsService) {
         return args -> {
 
             //Users
@@ -45,6 +42,12 @@ public class HardwareStoreApiApplication {
                     .build();
             cartService.save(cartBitopi);
 
+            //News
+            News news = News.builder()
+                    .news("New iPhone launching!")
+                    .build();
+
+            newsService.save(news);
 
         };
     }

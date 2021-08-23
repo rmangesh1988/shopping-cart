@@ -33,13 +33,18 @@ public class NewsService {
         return newsRepository.save(newsMapper.fromDTO(newsDTO));
     }
 
-    public News update(Long id, NewsDTO newsDTO) {
-        News news = newsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product with ID : " + id + " not found!"));
-        newsMapper.fromDTO(newsDTO, news);
+    public News save(News news) {
         return newsRepository.save(news);
     }
 
+    public News update(Long id, NewsDTO newsDTO) {
+        News news = newsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("News with ID : " + id + " not found!"));
+        newsMapper.fromDTO(newsDTO, news);
+        return newsRepository.save(news.updated());
+    }
+
     public void delete(Long id) {
+        newsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("News with ID : " + id + " not found!"));
         newsRepository.deleteById(id);
     }
 }

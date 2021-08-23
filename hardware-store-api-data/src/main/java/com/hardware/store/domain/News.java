@@ -1,17 +1,16 @@
 package com.hardware.store.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.function.Supplier;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = "localDateTimeSupplier")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -24,4 +23,19 @@ public class News {
 
     @NotNull
     private String news;
+
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime updatedAt;
+
+    @JsonIgnore
+    @Transient
+    @Builder.Default
+    protected transient Supplier<LocalDateTime> localDateTimeSupplier = LocalDateTime::now;
+
+    public News updated() {
+        this.updatedAt = localDateTimeSupplier.get();
+        return this;
+    }
 }
