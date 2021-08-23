@@ -69,7 +69,7 @@ public class OrderRepositoryTest {
                         .building("15B")
                         .city("Oslo")
                         .street("Xveien")
-                        .zipCode(0661)
+                        .zipCode("0661")
                         .build())
                 .build();
 

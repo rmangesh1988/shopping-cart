@@ -23,6 +23,6 @@ public class AddressDTO {
     @NotEmpty
     private String city;
 
-    @NotNull
-    private Integer zipCode;
+    @NotEmpty
+    private String zipCode;
 }

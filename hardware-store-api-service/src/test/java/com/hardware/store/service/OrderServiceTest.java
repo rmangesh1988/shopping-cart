@@ -80,14 +80,14 @@ public class OrderServiceTest {
         AddressDTO addressDTO = AddressDTO.builder()
                 .building("15B")
                 .city("Oslo")
-                .zipCode(0661)
+                .zipCode("0661")
                 .street("Xveien")
                 .build();
 
         Address address = Address.builder()
                 .building("15B")
                 .city("Oslo")
-                .zipCode(0661)
+                .zipCode("0661")
                 .street("Xveien")
                 .build();
 

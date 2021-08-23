@@ -85,7 +85,7 @@ public class OrderResourceTest {
         String building = "building";
         String city = "Oslo";
         String street = "street";
-        int zipCode = 0661;
+        String zipCode = "0661";
         Long orderId = 1L;
 
         AddressDTO addressDTO = AddressDTO.builder()
