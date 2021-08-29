@@ -1,5 +1,6 @@
 package com.hardware.store.config;
 
+import com.hardware.store.exception.ApiAuthenticationEntryPoint;
 import com.hardware.store.filter.CredentialsAuthenticationFilter;
 import com.hardware.store.filter.JWTAuthorizationFilter;
 import com.hardware.store.util.JWTUtil;
@@ -17,8 +18,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -39,6 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JWTUtil jwtUtil;
 
+    @Autowired
+    private ApiAuthenticationEntryPoint apiAuthenticationEntryPoint;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
@@ -55,23 +57,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http = http
                 .exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, ex) -> {
-                            response.sendError(
-                                    HttpServletResponse.SC_UNAUTHORIZED,
-                                    ex.getMessage()
-                            );
-                        }
-                )
+                .authenticationEntryPoint(apiAuthenticationEntryPoint)
                 .and();
 
         http.authorizeRequests()
                 .antMatchers("/api/v1/authenticate/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/v2/api-docs/**").permitAll()
-                .antMatchers("/swagger-ui.html/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/explorer/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilter(new CredentialsAuthenticationFilter(authenticationManagerBean(), jwtUtil));
         http.addFilterBefore(new JWTAuthorizationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);

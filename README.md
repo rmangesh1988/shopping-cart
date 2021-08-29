@@ -38,7 +38,7 @@ Dont forget to put space between Bearer and token.
 <br/>
 <br/>
 To get and overview of the api you can check out the swagger ui after starting the server at the below link,<br/>
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui/
 <br/>
  
 For testing postman was used. 

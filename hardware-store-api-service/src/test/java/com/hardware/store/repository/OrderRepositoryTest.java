@@ -1,16 +1,16 @@
 package com.hardware.store.repository;
 
-import com.hardware.store.domain.*;
-import com.hardware.store.mapper.NewsMapperImpl;
-import com.hardware.store.mapper.ProductMapperImpl;
-import com.hardware.store.service.*;
+import com.hardware.store.domain.Address;
+import com.hardware.store.domain.Order;
+import com.hardware.store.domain.OrderItem;
+import com.hardware.store.domain.Product;
+import com.hardware.store.domain.Role;
+import com.hardware.store.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -21,8 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-//Need to debug more here. This should not be needed. For some godly reason spring context is unable to find out these beans, when they are already defined.
-@Import({UserService.class, BCryptPasswordEncoder.class, RoleService.class, ProductService.class, CartService.class, ProductMapperImpl.class, CartItemService.class, NewsService.class, NewsMapperImpl.class})
 public class OrderRepositoryTest {
 
     @Autowired
